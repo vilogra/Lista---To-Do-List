@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themify-icons/themify-icons.css">
+</head>
+<body>
+
+    <div class="section">
+        <div class="container dark">
+            <div class="flex-container space">
+                <div class="date">
+                    <h3>Tuesday, August 13</h3>
+                    <p></p>
+                </div>
+                <div class="task">
+                    <h3><span>Incompleted Task</span></h3>
+                    <h3>Completed Task</h3>
+                </div>
+            </div>
+            <div class="flex-container">
+                <div class="input">
+                    <input class="value" type="text" placeholder="Enter a task.">
+                    <button class="submit">Submit</button>
+                </div>
+            </div>
+            <div class="flex-container row">
+                <div class="todolist">
+                    <p>Client Meeting @ 2:30 pm<span class="ti-trash"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+
+        let input = document.querySelector(".value")
+        // console.log(input)
+
+        let submit = document.querySelector(".submit")
+        submit.addEventListener("click", masukkan)
+        function masukkan () {
+            let tookDiv = document.querySelector(".todolist")
+            // creating tag span
+            let tookSpan = document.createElement("span")
+            let getSpan = tookSpan.setAttribute("class", "ti-trash")
+            // get value and creating tag p
+            let value = input.value
+            let createP = document.createElement("p")
+            let text = document.createTextNode(value)
+            // creating tag p and span in div class todolist
+            createP.appendChild(text)
+            createP.appendChild(tookSpan)
+            var result = tookDiv.appendChild(createP)
+
+            input.value = ("")
+        }
+
+        let getRemove = document.querySelector(".ti-trash")
+        getRemove.addEventListener("click", hapus)
+        function hapus() {
+            let debug = getRemove.removeChild()
+            console.log(debug)
+        }
+        console.log (hapus())
+
+    </script>
+
+</body>
+</html>
