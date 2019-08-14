@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>To Do List</title>
+    <title>Lista - To Do List</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/themify-icons/themify-icons.css">
+    <link rel="shortcut icon" href="favicon/icon.png" type="image/x-icon">
 </head>
 <body>
 
@@ -14,8 +15,8 @@
         <div class="container dark">
             <div class="flex-container space">
                 <div class="date">
-                    <h3>Tuesday, August 13</h3>
-                    <p></p>
+                    <h3 class="today"></h3>
+                    <p>To Do List</p>
                 </div>
                 <div class="task">
                     <h3><span>Incompleted Task</span></h3>
@@ -29,8 +30,12 @@
                 </div>
             </div>
             <div class="flex-container row">
-                <div class="todolist">
-                    <p>Client Meeting @ 2:30 pm<span class="ti-trash"></span></p>
+                <div class="todolist" id="todolist">
+                    <!-- <div class="item">
+                        <input type="checkbox" id="list-1">
+                        <label for="list-1">Clear Task</label>
+                        <span class="ti-close"></span>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -38,36 +43,68 @@
     
     <script>
 
+        let i = 0;let x = 0;let y = 0;let z = 0
+
+        // membuat date
+        const dateElement = document.querySelector(".today")
+        const options = {weekday : "long", month:"short", day:"numeric"}
+        const today = new Date()
+
+        dateElement.innerHTML = today.toLocaleDateString("en-US", options)
+
+        // inisialisasi variabel untuk menambah list
         let input = document.querySelector(".value")
-        // console.log(input)
+        let addButton = document.querySelector(".submit")
 
-        let submit = document.querySelector(".submit")
-        submit.addEventListener("click", masukkan)
-        function masukkan () {
+        // function list
+        addButton.addEventListener("click", add)
+        function add () {
+
             let tookDiv = document.querySelector(".todolist")
-            // creating tag span
-            let tookSpan = document.createElement("span")
-            let getSpan = tookSpan.setAttribute("class", "ti-trash")
-            // get value and creating tag p
+
+            // membuat <div class="item" id="list-id"
+            let tookItem = document.createElement("div")
+            tookItem.setAttribute ("class", "item")
+            tookItem.setAttribute ("id", "list-"+(x++))
+
+            // membuat <label>
             let value = input.value
-            let createP = document.createElement("p")
-            let text = document.createTextNode(value)
-            // creating tag p and span in div class todolist
-            createP.appendChild(text)
-            createP.appendChild(tookSpan)
-            var result = tookDiv.appendChild(createP)
+            let label = document.createElement("label")
+            label.setAttribute("for","check-"+(z++))
+            
+            // membuat <input type="radio">
+            let checkbox = document.createElement("input")
+            checkbox.setAttribute("type", "checkbox")
+            checkbox.setAttribute("id", "check-"+(y++))
 
-            input.value = ("")
+            // membuat <span class="ti-close"
+            let span = document.createElement("span")
+            span.setAttribute("class","ti-close")
+            span.setAttribute("onclick", "removeList("+(i++)+")")
+
+            // text untuk label
+            let textLabel = document.createTextNode(value)
+
+            // membuat appenchild
+            label.appendChild(textLabel)
+            tookItem.appendChild(checkbox)
+            tookItem.appendChild(label)
+            tookItem.appendChild(span)
+            let debug = tookDiv.appendChild(tookItem)
+
+            input.value = ""
+
+            console.log (debug)
         }
 
-        let getRemove = document.querySelector(".ti-trash")
-        getRemove.addEventListener("click", hapus)
-        function hapus() {
-            let debug = getRemove.removeChild()
-            console.log(debug)
+        // function untuk remove
+        function removeList(id){
+            let parentList = document.getElementById("todolist")
+            let childList = document.getElementById("list-"+id)
+            parentList.removeChild(childList)
         }
-        console.log (hapus())
-
+        
+        
     </script>
 
 </body>
